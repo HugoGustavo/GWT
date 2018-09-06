@@ -2,36 +2,41 @@ package com.tutorialspoint.client;
 
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class HelloWorld implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		ListBox listBox1 = new ListBox();
-		listBox1.addItem("First");
-		listBox1.addItem("Second");
-		listBox1.addItem("Third");
-		listBox1.addItem("Fourth");
-		listBox1.addItem("Fifth");
+		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+		oracle.add("A");
+		oracle.add("AB");
+		oracle.add("ABC");
+		oracle.add("ABCD");
+		oracle.add("B");
+		oracle.add("BC");
+		oracle.add("BCD");
+		oracle.add("BCDE");
+		oracle.add("C");
+		oracle.add("CD");
+		oracle.add("CDE");
+		oracle.add("CDEF");
+		oracle.add("D");
+		oracle.add("DE");
+		oracle.add("DEF");
+		oracle.add("DEFG");
 		
-		ListBox listBox2 = new ListBox();
-		listBox2.addItem("First");
-		listBox2.addItem("Second");
-		listBox2.addItem("Third");
-		listBox2.addItem("Fouth");
-		listBox2.addItem("Fifth");
+		SuggestBox suggestionBox = new SuggestBox(oracle);
 		
-		listBox1.setVisibleItemCount(5);
+		suggestionBox.setWidth("200");
 		
-		listBox2.setVisibleItemCount(1);
+		VerticalPanel panel= new VerticalPanel();
 		
-		VerticalPanel panel = new VerticalPanel();
-		panel.setSpacing(10);
-		panel.add(listBox1);
-		panel.add(listBox2);
+		panel.add(suggestionBox);
+		
 		RootPanel.get("gwtContainer").add(panel);
 		
 		
