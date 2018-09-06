@@ -11,14 +11,97 @@ h1 {
    text-align: center;
 }
 
-.gwt-Button { 
-   color:red;   
+.gwt-PushButton {
+	color: red;
 }
 
-.gwt-Green-Button { 
-   color:green;   
+.gwt-PushButton-up {
+	color:green;
 }
 
-.gwt-Blue-Button { 
-   color:blue;   
+.gwt-PushButton-up-hovering {
+	color:pink;
 }
+
+.gwt-PushButton-down-hovering {
+	color:aqua;
+}
+
+.gwt-PushButton-up-disabled {
+	color:lime;
+}
+
+.gwt-PushButton-down-disable {
+	color: marron;
+}
+
+.gwt-ToogleButton-down {
+	color:blue;
+}
+
+.gwt-ToogleButton-up {
+	color: green;
+}
+
+.gwt-ToogleButton-down-hovering {
+	color:acqua;
+}
+
+.gwt-ToogleButton-up-disabled {
+	color:lime;
+}
+
+.gwt-ToogleButton-down-disabled {
+	color: maroon;
+}
+
+.gwt-CheckBox {
+	color:green;
+}
+
+.gwt-CheckBox-disabled {
+	color:green;
+}
+
+
+.gwt-RadioButton {
+	color:green;
+}
+
+
+.gwt-ListBox {
+	color:green;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
