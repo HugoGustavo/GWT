@@ -11,17 +11,18 @@ h1 {
 	text-align: center;
 }
 
-.gwt-Button {
+.gwt-Label {
 	font-size: 150%;
 	font-weight: bold;
-	width: 100px;
-	height: 100px;
+	color: red;
+	padding: 5px;
+	margin: 5px;
 }
 
-.gwt-Big-Text{
-	font-size: 150%;
+.gwt-Green-Border{
+	border: 1px solid green;
 }
 
-.gwt-Small-Text {
-	font-size: 75%;
+.gwt-Blue-Border {
+	border: 1px solid blue;
 }

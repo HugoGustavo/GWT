@@ -2,31 +2,26 @@ package com.tutorialspoint.client;
 
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class HelloWorld implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		Button Btn1 = new Button("Big Text");
-		Btn1.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				RootPanel.get("myText").setStyleName("gwt-Big-Text");
-			}
-		});
+		Label label1 = new Label("This is first GWT Label");
+		Label label2 = new Label("This is second GWT Label");
 		
-		Button Btn2 = new Button("Small Text");
-		Btn2.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				RootPanel.get("myText").setStyleName("gwt-Small-Text");
-			}
-		});
+		label1.setTitle("Title for first Label");
+		label1.addStyleName("gwt-Green-Border");
+		label2.setTitle("Title for second Label");
+		label2.addStyleName("gwt-Blue-Border");
 		
-		RootPanel.get("gwtGreenButton").add(Btn1);
-		RootPanel.get("gwtRedButton").add(Btn2);
+		VerticalPanel panel = new VerticalPanel();
+		panel.add(label1);
+		panel.add(label2);
+		RootPanel.get("gwtContainer").add(panel);
 	}
 
 }
