@@ -1,28 +1,24 @@
 body {
-	text-align: center;
-	font-family: verdana, sans-serif;
+   text-align: center;
+   font-family: verdana, sans-serif;
 }
 
 h1 {
-	font-size: 2em;
-	font-weight: bold;
-	color: #777777;
-	margin: 40px 0px 70px;
-	text-align: center;
+   font-size: 2em;
+   font-weight: bold;
+   color: #777777;
+   margin: 40px 0px 70px;
+   text-align: center;
 }
 
-.gwt-Label {
-	font-size: 150%;
-	font-weight: bold;
-	color: red;
-	padding: 5px;
-	margin: 5px;
+.gwt-Button { 
+   color:red;   
 }
 
-.gwt-Green-Border{
-	border: 1px solid green;
+.gwt-Green-Button { 
+   color:green;   
 }
 
-.gwt-Blue-Border {
-	border: 1px solid blue;
+.gwt-Blue-Button { 
+   color:blue;   
 }
