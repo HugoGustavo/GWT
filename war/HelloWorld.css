@@ -178,3 +178,15 @@ h1 {
 .gwt-SuggestBoxPopup .suggestPopupBottomRightInner { 
    border: thin 1px solid green;
 }
+
+.gwt-TextArea {
+	color:green;
+}
+
+.gwt-TextArea-readonly{
+	background-color: yellow;
+}
+
+.gwt-RichTextArea{
+	padding: 10px;
+}

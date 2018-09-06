@@ -2,7 +2,7 @@ package com.tutorialspoint.client;
 
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -10,20 +10,16 @@ public class HelloWorld implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		PasswordTextBox passwordTextBox1 = new PasswordTextBox();
-		PasswordTextBox passwordTextBox2 = new PasswordTextBox();
+		RichTextArea richTextArea = new RichTextArea();
 		
-		passwordTextBox2.setText("hello@W@rld");
+		richTextArea.setHeight("220");
+		richTextArea.setWidth("200");
 		
-		passwordTextBox2.setReadOnly(true);
+		richTextArea.setHTML("<b>Hello World!<b><br/><br/>" +
+		"<i> Be Happy!</i><br/></br><u>Stay Cool!</u>");
 		
 		VerticalPanel panel = new VerticalPanel();
-		
-		panel.setSpacing(10);
-		panel.add(passwordTextBox1);
-		panel.add(passwordTextBox2);
-
-		
+		panel.add(richTextArea);
 		RootPanel.get("gwtContainer").add(panel);
 	}
 
