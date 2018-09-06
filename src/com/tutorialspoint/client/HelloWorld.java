@@ -1,48 +1,87 @@
 package com.tutorialspoint.client;
 
 
+import org.apache.xalan.trace.SelectionEvent;
+
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class HelloWorld implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		final TextBox textBox = new TextBox();
-		textBox.setWidth("275");
-		Button button1 = new Button("Set Value of Hidden Input");
-		Button button2 = new Button("Get Value of Hidden Input");
+		final Label labelMessage = new Label();
+		labelMessage.setWidth("300");
 		
-		final Hidden hidden = new Hidden();
+		TreeItem department = new TreeItem();
+		department.setText("Departament");
 		
-		button1.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				hidden.setValue(textBox.getValue());
-				Window.alert("Value of Hidden Widget Updated!");
-			}
-		});
+		TreeItem salesDepartment = new TreeItem();
+		salesDepartment.setText("Sales");
 		
-		button2.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				Window.alert("Value of Hidden Widget: " + hidden.getValue());
+		TreeItem marketingDepartment = new TreeItem();
+		marketingDepartment.setText("Marketing");
+		
+		TreeItem manufacturingDepartment = new TreeItem();
+		manufacturingDepartment.setText("Manufacturing");
+		
+		TreeItem employee1 = new TreeItem();
+		employee1.setText("Robert");
+		
+		TreeItem employee2 = new TreeItem();
+		employee2.setText("Joe");
+		
+		TreeItem employee3 = new TreeItem();
+		employee3.setText("Chris");
+		
+		salesDepartment.addItem(employee1);
+		salesDepartment.addItem(employee2);
+		salesDepartment.addItem(employee3);
+
+		TreeItem employee4 = new TreeItem();
+		employee4.setText("Mona");
+		TreeItem employee5 = new TreeItem();
+		employee5.setText("Tena");
+		
+		marketingDepartment.addItem(employee4);
+		marketingDepartment.addItem(employee5);
+		
+		TreeItem employee6 = new TreeItem();
+		employee6.setText("Rener");
+		
+		TreeItem employee7 = new TreeItem();
+		employee7.setText("Linda");
+		
+		manufacturingDepartment.addItem(employee6);
+		manufacturingDepartment.addItem(employee7);
+
+		department.addItem(salesDepartment);
+		department.addItem(marketingDepartment);
+		department.addItem(manufacturingDepartment);
+		
+		Tree tree = new Tree();
+		
+		tree.addItem(department);
+		tree.addSelectionHandler(new SelectionHandler<TreeItem>	() {
+			@Override
+			public void onSelection(com.google.gwt.event.logical.shared.SelectionEvent<TreeItem> event) {
+				labelMessage.setText("Selected Value: " + event.getSelectedItem().getText());
+				
 			}
 		});
 		
 		VerticalPanel panel = new VerticalPanel();
 		panel.setSpacing(10);
-		panel.add(textBox);
-		panel.add(button1);
-		panel.add(hidden);
-		panel.add(button2);
+		panel.add(tree);
+		panel.add(labelMessage);
 		
 		RootPanel.get("gwtContainer").add(panel);
+	
 	}
 
 }

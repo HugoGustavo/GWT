@@ -194,3 +194,40 @@ h1 {
 .gwt-FileUpload {
 	color: green;
 }
+
+.gwt-Tree .gwt-TreeItem {
+	padding: 1px 0px;
+	margin: 0px;
+	white-space: nowrap;
+	cursor: hand;
+	cursor: pointer;
+}
+
+.gwt-Tree .gwt-TreeItem-selected {
+	background: #ebeff9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
