@@ -190,3 +190,7 @@ h1 {
 .gwt-RichTextArea{
 	padding: 10px;
 }
+
+.gwt-FileUpload {
+	color: green;
+}
