@@ -68,6 +68,14 @@ h1 {
 	color:green;
 }
 
+.gwt-TextBox {
+	color:green;
+}
+
+.gwt-TextBox-readonly{
+	background-color:yellow;
+}
+
 
 .gwt-ListBox {
 	color:green;
@@ -89,6 +97,14 @@ h1 {
 
 .gwt-SuggestBoxPopup .item-selected { 
    color: gray;
+}
+
+.gwt-PasswordTextBox {
+	color:green;
+}
+
+.gwt-PasswordTextBox-readonly{
+	background-color: yellow;
 }
 
 .gwt-SuggestBoxPopup .suggestPopupTopLeft { 
