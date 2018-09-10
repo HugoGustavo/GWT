@@ -4,69 +4,55 @@ package com.tutorialspoint.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DeckPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.DecoratorPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 public class HelloWorld implements EntryPoint {
 
+	private class MyClickHandler implements ClickHandler{
+
+		@Override
+		public void onClick(ClickEvent event) {
+			Window.alert("Hello World!");
+			
+		}
+	}
+	
+	private class MyKeyDownHandler implements KeyDownHandler{
+		@Override
+		public void onKeyDown(KeyDownEvent event) {
+			if ( event.getNativeKeyCode() == KeyCodes.KEY_ENTER ) {
+				Window.alert(((TextBox) event.getSource()).getValue());
+			}
+		}
+	}
 	@Override
 	public void onModuleLoad() {
-		final DeckPanel deckPanel = new DeckPanel();
-		deckPanel.setSize("300px", "120px");
-		deckPanel.setStyleName("deckpanel");
+		TextBox textBox = new TextBox();
+		textBox.addKeyDownHandler(new MyKeyDownHandler());
 		
-		Label label1 = new Label("This is first Page");
-		Label label2 = new Label("This is second Page");
-		Label label3 = new Label("This is third Page");
+		Button button = new Button("Click Me!");
+		button.addClickHandler(new MyClickHandler());
 		
-		deckPanel.add(label1);
-		deckPanel.add(label2);
-		deckPanel.add(label3);
+		VerticalPanel panel = new VerticalPanel();
+		panel.setSpacing(10);
+		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		panel.setSize("300", "100");
+		panel.add(textBox);
+		panel.add(button);
 		
-		deckPanel.showWidget(0);
-		
-		HorizontalPanel buttonBar = new HorizontalPanel();
-		buttonBar.setSpacing(5);
-		
-		Button button1 = new Button("Page 1");
-		button1.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				deckPanel.showWidget(0);;
-			}
-		});
-		
-		Button button2 = new Button("Page 2");
-		button2.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				deckPanel.showWidget(1);;
-			}
-		});
-		
-		Button button3 = new Button("Page 3");
-		button3.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				deckPanel.showWidget(2);
-			}
-		});
-		
-		buttonBar.add(button1);
-		buttonBar.add(button2);
-		buttonBar.add(button3);
-		
-		VerticalPanel vPanel = new VerticalPanel();
-		vPanel.add(deckPanel);
-		vPanel.add(buttonBar);
-		
-		RootPanel.get("gwtContainer").add(vPanel);
-		
+		DecoratorPanel decoratorPanel = new DecoratorPanel();
+		decoratorPanel.add(panel);
+		RootPanel.get("gwtContainer").add(decoratorPanel);
 	}
 
 }
