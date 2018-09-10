@@ -2,72 +2,97 @@ package com.tutorialspoint.client;
 
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.view.client.ProvidesKey;
-import com.google.gwt.view.client.SelectionModel;
+import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 
 public class HelloWorld implements EntryPoint {
 
 	private static class Contact {
-		private static int nextId = 0;
-		private final int id;
-		private String name;
-		
-		public Contact(String name) {
-			nextId++;
-			this.id = nextId;
-			this.name = name;
-		}
+	      private final String address;
+	      private final Date birthday;
+	      private final String name;
+
+	      public Contact(String name, Date birthday, String address) {
+	         this.name = name;
+	         this.birthday = birthday;
+	         this.address = address;
+	      }
 	}
+
+	private static final List<Contact> CONTACTS = Arrays.asList(
+			new Contact("John", new Date(80, 4, 12), "123 Fourth Avenue"),
+			new Contact("Joe", new Date(85, 2, 22), "22 Lance Ln"),
+			new Contact("George",new Date(46, 6, 6),"1600 Pennsylvania Avenue"));
 	
-	private static class ContactCell extends AbstractCell<Contact>{
-		@Override
-		public void render(Context context, Contact value, SafeHtmlBuilder sb) {
-			if ( value != null )
-				sb.appendEscaped(value.name);	
-		}
-	}
-	
-	private static final List<Contact> CONTACTS = Arrays.asList(new Contact("John"), new Contact("Joe"), new Contact("Michael"), new Contact("Sarah"), new Contact("George"));
 	@Override
 	public void onModuleLoad() {
-		ProvidesKey<Contact> keyProvider = new ProvidesKey<Contact>() {
-			public Object getKey(Contact item) {
-				return (item == null) ? null : item.id;
+		CellTable<Contact> table = new CellTable<Contact>();
+		table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
+		
+		TextColumn <Contact> nameColumn = new TextColumn<Contact>() {
+			@Override
+			public String getValue(Contact object) {
+				return object.name;
 			}
 		};
 		
-		CellList<Contact> cellList = new CellList<Contact>(new ContactCell(),keyProvider);
+		table.addColumn(nameColumn, "Name");
 		
-		cellList.setRowCount(CONTACTS.size(), true);
-		cellList.setRowData(0, CONTACTS);
+		DateCell dateCell = new DateCell();
+		Column<Contact, Date> dateColumn = new Column<Contact, Date>(dateCell){
+			@Override
+			public Date getValue(Contact object) {
+				return object.birthday;
+			}
+		};
+		table.addColumn(dateColumn, "Birthday");
 		
-		SelectionModel<Contact> selectionModel = new SingleSelectionModel<Contact>(keyProvider);
-		cellList.setSelectionModel(selectionModel);
+		TextColumn<Contact> addressColumn = new TextColumn<Contact>() {
+			@Override
+			public String getValue(Contact object) {
+				return object.address;
+			}
+		};
+		table.addColumn(addressColumn, "Address");
 		
-		Contact sarah = CONTACTS.get(3);
-		selectionModel.setSelected(sarah, true);
+		final SingleSelectionModel<Contact> selectionModel = new SingleSelectionModel<>();
+		table.setSelectionModel(selectionModel);
+		selectionModel.addSelectionChangeHandler(
+				new SelectionChangeEvent.Handler() {
+					
+					@Override
+					public void onSelectionChange(SelectionChangeEvent event) {
+						Contact selected = selectionModel.getSelectedObject();
+						
+						if ( selected != null ) {
+							Window.alert("You selected: " + selected.name);
+						}
+					}
+				}
+		);
 		
-		sarah.name = "Sara";
-		
-		cellList.redraw();
+		table.setRowCount(CONTACTS.size(), true);
+		table.setRowData(0, CONTACTS);
 		
 		VerticalPanel panel = new VerticalPanel();
 		panel.setBorderWidth(1);
-		panel.setWidth("200");
-		panel.add(cellList);
+		panel.setWidth("400");
+		panel.add(table);
 		
 		RootPanel.get().add(panel);
-		
 		
 	}
 
