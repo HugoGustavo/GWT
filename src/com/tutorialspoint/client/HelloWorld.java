@@ -3,29 +3,28 @@ package com.tutorialspoint.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.DecoratorPanel;
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalSplitPanel;
 
 
 public class HelloWorld implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		VerticalSplitPanel verticalSplitPanel = new VerticalSplitPanel();
-		verticalSplitPanel.setSize("300px", "200px");
-		verticalSplitPanel.setSplitPosition("35%");
+		Grid grid = new Grid(2,2);
 		
-		String randomText = "This is a sample text. ";
-		for ( int i = 0; i < 2; i++) {
-			randomText += randomText;
+		int numRows = grid.getRowCount();
+		int numColumns = grid.getColumnCount();
+		
+		for ( int row = 0; row < numRows; row++) {
+			for ( int col = 0; col < numColumns; col++ ) {
+				grid.setWidget(row, col, new Image("http://www.tutorialspoint.com/images/gwt-mini.png"));
+			}
 		}
 		
-		verticalSplitPanel.setBottomWidget(new HTML(randomText));
-		verticalSplitPanel.setTopWidget(new HTML(randomText));
-		
 		DecoratorPanel decoratorPanel = new DecoratorPanel();
-		decoratorPanel.add(verticalSplitPanel);
+		decoratorPanel.add(grid);
 		RootPanel.get("gwtContainer").add(decoratorPanel);
 	}
 
