@@ -4,55 +4,62 @@ package com.tutorialspoint.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyDownEvent;
-import com.google.gwt.event.dom.client.KeyDownHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DecoratorPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 public class HelloWorld implements EntryPoint {
-
-	private class MyClickHandler implements ClickHandler{
+	private static class OptionalTextBox extends Composite implements ClickHandler {
+		private TextBox textBox = new TextBox();
+		private CheckBox checkBox = new CheckBox();
+		private boolean enabled = true;
+		
+		public OptionalTextBox(String caption) {
+			HorizontalPanel panel = new HorizontalPanel();
+			panel.setSpacing(10);
+			panel.add(checkBox);
+			panel.add(textBox);
+			
+			initWidget(panel);
+			
+			setStyleName("optionalTextWidget");
+			textBox.setStyleName("optionalTextBox");
+			checkBox.setStyleName("optionalCheckBox");
+			textBox.setWidth("200");
+			
+			checkBox.setText(caption);
+			checkBox.setValue(enabled);
+			checkBox.addClickHandler(this);
+			enableTextBox(enabled, checkBox.getValue());
+		}
+		
+		public void setEnabled(boolean enabled) {
+			this.enabled = enabled;
+		}
 
 		@Override
 		public void onClick(ClickEvent event) {
-			Window.alert("Hello World!");
-			
-		}
-	}
-	
-	private class MyKeyDownHandler implements KeyDownHandler{
-		@Override
-		public void onKeyDown(KeyDownEvent event) {
-			if ( event.getNativeKeyCode() == KeyCodes.KEY_ENTER ) {
-				Window.alert(((TextBox) event.getSource()).getValue());
+			if ( event.getSource() == checkBox ) {
+				enableTextBox(enabled, checkBox.getValue());
 			}
 		}
+		
+		private void enableTextBox(boolean enable, boolean isChecked) {
+			enable = ( enable && isChecked ) || ( !enable && !isChecked );
+			textBox.setStyleDependentName("disabled", !enable);
+			textBox.setEnabled(enable);
+		}
+		
 	}
 	@Override
 	public void onModuleLoad() {
-		TextBox textBox = new TextBox();
-		textBox.addKeyDownHandler(new MyKeyDownHandler());
+		OptionalTextBox optionalTextBox = new OptionalTextBox("Want to explain the solution?");
+		optionalTextBox.setEnabled(true);
+		RootPanel.get("gwtContainer").add(optionalTextBox);
 		
-		Button button = new Button("Click Me!");
-		button.addClickHandler(new MyClickHandler());
-		
-		VerticalPanel panel = new VerticalPanel();
-		panel.setSpacing(10);
-		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		panel.setSize("300", "100");
-		panel.add(textBox);
-		panel.add(button);
-		
-		DecoratorPanel decoratorPanel = new DecoratorPanel();
-		decoratorPanel.add(panel);
-		RootPanel.get("gwtContainer").add(decoratorPanel);
 	}
 
 }
