@@ -486,3 +486,8 @@ td.datePickerMonth {
 .gwt-CheckBox {
    margin: 10px;	
 }
+
+.deckpanel {
+  border: 1px solid #BBBBBB;
+  padding: 3px;
+}
