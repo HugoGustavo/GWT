@@ -2,6 +2,7 @@ package com.tutorialspoint.client;
 
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -19,48 +20,54 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 public class HelloWorld implements EntryPoint {
+	private HelloWorldMessages messages = GWT.create(HelloWorld.class);
+	
 	String getGreeting(String name) {
 		return "Hello " + name + "!";
 	}
 	
 	@Override
 	public void onModuleLoad() {
-		final TextBox txtName = new TextBox();
-		txtName.setWidth("200");
-		txtName.addKeyUpHandler(new KeyUpHandler() {
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if ( event.getNativeKeyCode() == KeyCodes.KEY_ENTER ) {
-					Window.alert(getGreeting(txtName.getValue()));
-				}
-			}
-		});
-		
-		Label lblName = new Label("Enter your name: ");
-		Button buttonMessage = new Button("Click Me!");
-		
-		buttonMessage.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Window.alert(getGreeting(txtName.getValue()));
-			}
-		});
-		
-		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.add(lblName);
-		hPanel.add(txtName);
-		hPanel.setCellWidth(lblName, "130");
-		
-		VerticalPanel vPanel = new VerticalPanel();
-		vPanel.setSpacing(10);
-		vPanel.add(hPanel);
-		vPanel.add(buttonMessage);
-		vPanel.setCellHorizontalAlignment(buttonMessage, HasHorizontalAlignment.ALIGN_RIGHT);
-		
-		DecoratorPanel panel = new DecoratorPanel();
-		panel.add(vPanel);
-		
-		RootPanel.get("gwtContainer").add(panel);
-	}
+	      /*create UI */
+	      final TextBox txtName = new TextBox(); 
+	      txtName.setWidth("200");
+	      txtName.addKeyUpHandler(new KeyUpHandler() {
+	         @Override
+	         public void onKeyUp(KeyUpEvent event) {
+	            if(event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
+	               Window.alert(getGreeting(txtName.getValue()));
+	            }				
+	         }
+	      });
+	      Label lblName = new Label(messages.enterName() + ": ");
+
+	      Button buttonMessage = new Button(messages.clickMe() + "!");
+
+	      buttonMessage.addClickHandler(new ClickHandler() {			
+	         @Override
+	         public void onClick(ClickEvent event) {
+	            Window.alert(getGreeting(txtName.getValue()));
+	         }
+	      });
+
+	      HorizontalPanel hPanel = new HorizontalPanel();	
+	      hPanel.add(lblName);
+	      hPanel.add(txtName);      
+
+	      VerticalPanel vPanel = new VerticalPanel();
+	      vPanel.setSpacing(10);
+	      vPanel.add(hPanel);
+	      vPanel.add(buttonMessage);
+	      vPanel.setCellHorizontalAlignment(buttonMessage, 
+	      HasHorizontalAlignment.ALIGN_RIGHT);
+
+	      DecoratorPanel panel = new DecoratorPanel();
+	      panel.add(vPanel);
+	      Label titleLabel = new Label(messages.applicationTitle());
+	      //Add title to the application
+	      RootPanel.get("gwtAppTitle").add(titleLabel);
+	      // Add widgets to the root panel.
+	      RootPanel.get("gwtContainer").add(panel);
+	   }
 
 }
